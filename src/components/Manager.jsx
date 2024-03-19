@@ -13,6 +13,11 @@ const Manager = () => {
     }
   }, []);
 
+  const copyText = (text) => {
+    alert("Copied to clipboard " + text);
+    navigator.clipboard.writeText(text);
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -22,6 +27,7 @@ const Manager = () => {
     localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
     console.log([...passwordArray, form]);
   };
+
   const handleChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value });
   };
@@ -35,11 +41,7 @@ const Manager = () => {
         <h1 className="text-4xl font-bold text-center flex items-center justify-center">
           <span className="text-[#89c04a]">S3CURE</span>
           <span className="">PASS</span>
-          <img
-            src="/public/secureIcon.png"
-            alt="secureIcon"
-            className="w-12 mx-1"
-          />
+          <img src="/secureIcon.png" alt="secureIcon" className="w-12 mx-1" />
         </h1>
         <p className="text-black text-lg text-center">
           Your Own Password Manager
@@ -103,7 +105,7 @@ const Manager = () => {
         <div className="passwords">
           <h2 className="font-bold text-2xl py-4">Your Passwords</h2>
           {passwordArray.length === 0 && <div>No passwords to show</div>}
-          {passwordArray.length != 0 && (
+          {passwordArray.length !== 0 && (
             <table className="table-auto w-full overflow-hidden rounded-md">
               <thead className="bg-green-800 text-white">
                 <tr>
@@ -113,23 +115,49 @@ const Manager = () => {
                 </tr>
               </thead>
               <tbody className="bg-green-100">
-                {passwordArray.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td className="py-2 text-center w-32 border border-white">
+                {passwordArray.map((item, index) => (
+                  <tr key={index}>
+                    <td className="py-2 text-center border border-white">
+                      <div className="flex items-center justify-center">
                         <a href={item.site} target="_blank">
                           {item.site}
                         </a>
-                      </td>
-                      <td className="py-2 text-center w-32 border border-white">
-                        {item.username}
-                      </td>
-                      <td className="py-2 text-center w-32 border border-white">
-                        {item.password}
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <span
+                          className="copyBtn material-symbols-outlined cursor-pointer ml-2"
+                          onClick={() => copyText(item.site)}
+                        >
+                          content_copy
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-2 text-center w-32 border border-white">
+                      <div className="flex items-center justify-center">
+                        <a href={item.username} target="_blank">
+                          {item.username}
+                        </a>
+                        <span
+                          className="copyBtn material-symbols-outlined cursor-pointer ml-2"
+                          onClick={() => copyText(item.username)}
+                        >
+                          content_copy
+                        </span>
+                      </div>
+                    </td>
+                    <td className="py-2 text-center w-32 border border-white">
+                      <div className="flex items-center justify-center">
+                        <a href={item.password} target="_blank">
+                          {item.password}
+                        </a>
+                        <span
+                          className="copyBtn material-symbols-outlined cursor-pointer ml-2"
+                          onClick={() => copyText(item.password)}
+                        >
+                          content_copy
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           )}

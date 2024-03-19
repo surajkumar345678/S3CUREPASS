@@ -8,7 +8,7 @@ const Navbar = () => {
           <span className="text-[#89c04a]">S3CURE</span>
           <span className="">PASS </span>
           <img
-            src="/public/secureIcon.png"
+            src="/secureIcon.png"
             alt="secureIcon"
             className="w-7 mx-1"
           />
