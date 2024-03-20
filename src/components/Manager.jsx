@@ -22,7 +22,7 @@ const Manager = () => {
   const copyText = (text) => {
     toast(text + " copied to clipboard", {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -38,20 +38,42 @@ const Manager = () => {
   };
 
   const savePassword = () => {
+    if (!form.site || !form.username || !form.password) {
+      toast.error("Please fill in all fields before saving the password", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
     setPasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
     localStorage.setItem(
       "passwords",
       JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
     );
-    setform({ site: "", username: "", password: "" }); 
-    console.log([...passwordArray, form]);
+    setform({ site: "", username: "", password: "" });
+    toast.success("Password saved successfully", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   const editPassword = (id) => {
     console.log("editing password", id);
     setform(passwordArray.filter((i) => i.id === id)[0]);
     setPasswordArray(passwordArray.filter((item) => item.id !== id));
-    
   };
 
   const deletePassword = (id) => {
@@ -59,10 +81,12 @@ const Manager = () => {
       "Are you sure you want to delete this password?"
     );
     if (confirmation) {
-      setPasswordArray(passwordArray.filter((item) => item.id !== id));
+      const updatedPasswords = passwordArray.filter((item) => item.id !== id);
+      setPasswordArray(updatedPasswords);
+      localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
       toast.success("Password deleted successfully", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -96,7 +120,7 @@ const Manager = () => {
       <ToastContainer />
       <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0f0_100%)]"></div>
 
-      <div className="mycontainer">
+      <div className="md:mycontainer p-3 min-h-[86.5vh]">
         <h1 className="text-4xl font-bold text-center flex items-center justify-center">
           <span className="text-[#89c04a]">S3CURE</span>
           <span className="">PASS</span>
@@ -114,24 +138,27 @@ const Manager = () => {
             type="text"
             placeholder="Enter Website URL"
             name="site"
+            id="site"
           />
-          <div className="flex w-full justify-between gap-10">
+          <div className="flex flex-col md:flex-row w-full justify-between gap-10">
             <input
               value={form.username}
               onChange={handleChange}
-              className="rounded-full border border-[#89c04a] w-3/4 p-4 py-1"
+              className="rounded-full border border-[#89c04a] w-full p-4 py-1"
               type="text"
               placeholder="Enter Username"
               name="username"
+              id="username"
             />
             <div className="relative">
               <input
                 value={form.password}
                 onChange={handleChange}
-                className="rounded-full border border-[#89c04a] w-64 p-4 py-1"
+                className="rounded-full border border-[#89c04a] w-full p-4 py-1"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 name="password"
+                id="password"
               />
               <span
                 className="absolute right-[2px] top-[2px] cursor-pointer"
@@ -165,7 +192,7 @@ const Manager = () => {
           <h2 className="font-bold text-2xl py-4">Your Passwords</h2>
           {passwordArray.length === 0 && <div>No passwords to show</div>}
           {passwordArray.length !== 0 && (
-            <table className="table-auto w-full overflow-hidden rounded-md">
+            <table className="table-auto w-full overflow-hidden rounded-md mb-10">
               <thead className="bg-green-800 text-white">
                 <tr>
                   <th className="py-2">Site</th>
