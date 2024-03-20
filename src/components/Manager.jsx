@@ -233,7 +233,7 @@ const Manager = () => {
                     <td className="py-2 text-center w-32 border border-white">
                       <div className="flex items-center justify-center">
                         <a href={item.password} target="_blank">
-                          {item.password}
+                          {"*".repeat(item.password.length)}
                         </a>
                         <span
                           className="copyBtn material-symbols-outlined cursor-pointer ml-2"
