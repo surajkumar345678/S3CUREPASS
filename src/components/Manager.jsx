@@ -20,7 +20,7 @@ const Manager = () => {
   }, []);
 
   const copyText = (text) => {
-    toast(text + " copied to clipboard", {
+    toast("Copied to clipboard", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -118,15 +118,14 @@ const Manager = () => {
       />
       {/* Same as */}
       <ToastContainer />
-      <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0f0_100%)]"></div>
 
       <div className="md:mycontainer p-3 min-h-[86.5vh]">
         <h1 className="text-4xl font-bold text-center flex items-center justify-center">
-          <span className="text-[#89c04a]">S3CURE</span>
-          <span className="">PASS</span>
+          <span className="text-[#00ed64]">S3CURE</span>
+          <span className="text-white">PASS</span>
           <img src="/secureIcon.png" alt="secureIcon" className="w-12 mx-1" />
         </h1>
-        <p className="text-black text-lg text-center">
+        <p className="text-white text-lg text-center">
           Your Own Password Manager
         </p>
 
@@ -134,7 +133,7 @@ const Manager = () => {
           <input
             value={form.site}
             onChange={handleChange}
-            className="rounded-full border border-[#89c04a] w-full p-4 py-1"
+            className="rounded-full border border-[#00ed64] w-full p-4 py-1"
             type="text"
             placeholder="Enter Website URL"
             name="site"
@@ -144,7 +143,7 @@ const Manager = () => {
             <input
               value={form.username}
               onChange={handleChange}
-              className="rounded-full border border-[#89c04a] w-full p-4 py-1"
+              className="rounded-full border border-[#00ed64] w-full md:w-[60%] p-4 py-1"
               type="text"
               placeholder="Enter Username"
               name="username"
@@ -154,7 +153,7 @@ const Manager = () => {
               <input
                 value={form.password}
                 onChange={handleChange}
-                className="rounded-full border border-[#89c04a] w-full p-4 py-1"
+                className="rounded-full border border-[#00ed64] w-full md:w-[100%] p-5 py-1"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 name="password"
@@ -165,11 +164,17 @@ const Manager = () => {
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? (
-                  <span ref={ref} className="material-symbols-outlined p-1">
+                  <span
+                    ref={ref}
+                    className="material-symbols-outlined p-1 text-[#00ed64]"
+                  >
                     visibility
                   </span>
                 ) : (
-                  <span ref={ref} className="material-symbols-outlined p-1">
+                  <span
+                    ref={ref}
+                    className="material-symbols-outlined p-1 text-[#00ed64]"
+                  >
                     visibility_off
                   </span>
                 )}
@@ -179,7 +184,7 @@ const Manager = () => {
 
           <button
             onClick={savePassword}
-            className="flex justify-center items-center bg-green-500 rounded-full px-8 py-2 w-fit hover:bg-green-400 gap-2 border border-green-900"
+            className="flex justify-center items-center bg-[#00ed64] font-bold text-md rounded-full px-8 py-2 w-fit hover:bg-[#00a957] gap-2"
           >
             <lord-icon
               src="https://cdn.lordicon.com/jgnvfzqg.json"
@@ -189,11 +194,15 @@ const Manager = () => {
           </button>
         </div>
         <div className="passwords">
-          <h2 className="font-bold text-2xl py-4">Your Passwords</h2>
-          {passwordArray.length === 0 && <div>No passwords to show</div>}
+          <h2 className="text-white font-bold text-2xl underline py-4">
+            Your Passwords
+          </h2>
+          {passwordArray.length === 0 && (
+            <div className="text-white">No passwords to show.</div>
+          )}
           {passwordArray.length !== 0 && (
             <table className="table-auto w-full overflow-hidden rounded-md mb-10">
-              <thead className="bg-green-800 text-white">
+              <thead className="bg-[#00684a] text-white">
                 <tr>
                   <th className="py-2">Site</th>
                   <th className="py-2">Username</th>
@@ -204,9 +213,13 @@ const Manager = () => {
               <tbody className="bg-green-100">
                 {passwordArray.map((item, index) => (
                   <tr key={index}>
-                    <td className="py-2 text-center border border-white">
+                    <td className="py-2 text-center border border-white overflow-x-auto max-w-xs">
                       <div className="flex items-center justify-center">
-                        <a href={item.site} target="_blank">
+                        <a
+                          href={item.site}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {item.site}
                         </a>
                         <span
@@ -217,9 +230,13 @@ const Manager = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="py-2 text-center w-32 border border-white">
+                    <td className="py-2 text-center w-32 border border-white overflow-x-auto max-w-xs">
                       <div className="flex items-center justify-center">
-                        <a href={item.username} target="_blank">
+                        <a
+                          href={item.username}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {item.username}
                         </a>
                         <span
@@ -230,11 +247,9 @@ const Manager = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="py-2 text-center w-32 border border-white">
+                    <td className="py-2 text-center w-32 border border-white overflow-x-auto max-w-xs">
                       <div className="flex items-center justify-center">
-                        <a href={item.password} target="_blank">
-                          {"*".repeat(item.password.length)}
-                        </a>
+                        <span>***********</span> 
                         <span
                           className="copyBtn material-symbols-outlined cursor-pointer ml-2"
                           onClick={() => copyText(item.password)}
@@ -243,20 +258,22 @@ const Manager = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="py-2 text-center w-32 border border-white">
+                    <td className="py-2 text-center w-32 border border-white overflow-x-auto max-w-xs">
                       <span
-                        class="cursor-pointer mx-2 material-symbols-outlined"
+                        className="cursor-pointer mx-2 material-symbols-outlined"
                         onClick={() => {
                           editPassword(item.id);
                         }}
+                        aria-label="Edit password"
                       >
                         border_color
                       </span>
                       <span
-                        class="cursor-pointer mx-2 material-symbols-outlined"
+                        className="cursor-pointer mx-2 material-symbols-outlined"
                         onClick={() => {
                           deletePassword(item.id);
                         }}
+                        aria-label="Delete password"
                       >
                         delete
                       </span>

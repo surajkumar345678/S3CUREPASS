@@ -8,9 +8,11 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0f0_100%)]">
+      <div class="bg-gradient-to-t from-gray-900 to-gray-600">
         <Manager />
+
       </div>
+
 
       <Footer />
     </>
