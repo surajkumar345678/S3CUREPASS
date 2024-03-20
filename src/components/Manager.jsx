@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
+import { v4 as uuidv4 } from "uuid";
+
 const Manager = () => {
   const ref = useRef();
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +28,7 @@ const Manager = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light"
+      theme: "light",
     });
     navigator.clipboard.writeText(text);
   };
@@ -36,9 +38,39 @@ const Manager = () => {
   };
 
   const savePassword = () => {
-    setPasswordArray([...passwordArray, form]);
-    localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
+    setPasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
+    localStorage.setItem(
+      "passwords",
+      JSON.stringify([...passwordArray, { ...form, id: uuidv4() }])
+    );
+    setform({ site: "", username: "", password: "" }); 
     console.log([...passwordArray, form]);
+  };
+
+  const editPassword = (id) => {
+    console.log("editing password", id);
+    setform(passwordArray.filter((i) => i.id === id)[0]);
+    setPasswordArray(passwordArray.filter((item) => item.id !== id));
+    
+  };
+
+  const deletePassword = (id) => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this password?"
+    );
+    if (confirmation) {
+      setPasswordArray(passwordArray.filter((item) => item.id !== id));
+      toast.success("Password deleted successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -62,9 +94,8 @@ const Manager = () => {
       />
       {/* Same as */}
       <ToastContainer />
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)]"></div>
-      </div>
+      <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#0f0_100%)]"></div>
+
       <div className="mycontainer">
         <h1 className="text-4xl font-bold text-center flex items-center justify-center">
           <span className="text-[#89c04a]">S3CURE</span>
@@ -88,7 +119,7 @@ const Manager = () => {
             <input
               value={form.username}
               onChange={handleChange}
-              className="rounded-full border border-[#89c04a] w-full p-4 py-1"
+              className="rounded-full border border-[#89c04a] w-3/4 p-4 py-1"
               type="text"
               placeholder="Enter Username"
               name="username"
@@ -97,7 +128,7 @@ const Manager = () => {
               <input
                 value={form.password}
                 onChange={handleChange}
-                className="rounded-full border border-[#89c04a] w-full p-4 py-1"
+                className="rounded-full border border-[#89c04a] w-64 p-4 py-1"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter Password"
                 name="password"
@@ -140,6 +171,7 @@ const Manager = () => {
                   <th className="py-2">Site</th>
                   <th className="py-2">Username</th>
                   <th className="py-2">Password</th>
+                  <th className="py-2">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-green-100">
@@ -183,6 +215,24 @@ const Manager = () => {
                           content_copy
                         </span>
                       </div>
+                    </td>
+                    <td className="py-2 text-center w-32 border border-white">
+                      <span
+                        class="cursor-pointer mx-2 material-symbols-outlined"
+                        onClick={() => {
+                          editPassword(item.id);
+                        }}
+                      >
+                        border_color
+                      </span>
+                      <span
+                        class="cursor-pointer mx-2 material-symbols-outlined"
+                        onClick={() => {
+                          deletePassword(item.id);
+                        }}
+                      >
+                        delete
+                      </span>
                     </td>
                   </tr>
                 ))}
