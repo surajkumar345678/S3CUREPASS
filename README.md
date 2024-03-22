@@ -1,29 +1,29 @@
-## SecurePass - Your Own Password Manager
+# S3CUREPASS - Your Own Password Manager
 
-**SecurePass** is a simple and effective password manager built with React. It helps you securely store your website login credentials and access them conveniently.
+SecurePass is a simple yet effective password manager built using React. It allows users to securely store their website URLs, usernames, and passwords in one place. With SecurePass, you can easily manage and access your passwords whenever you need them.
 
-**Features**
+## Features
 
-* Secure storage of website URLs, usernames, and passwords.
-* Encrypted passwords stored locally in the browser.
-* Easy addition, editing, and deletion of passwords.
-* Quick access through password copying to clipboard.
-* Responsive design for smooth experience across devices.
+- Securely store website URLs, usernames, and passwords.
+- Passwords are encrypted and stored locally in the browser.
+- Add, edit, or delete passwords with ease.
+- Copy passwords to the clipboard for quick access.
+- Responsive design for seamless usage on different devices.
 
-**Technologies Used**
+## Technologies Used
 
-* Frontend: React, Tailwind CSS
-* State Management: React Hooks
-* Data Storage: Local Storage
-* Dependencies: react-toastify, uuid
-* Development Tools: Vite, ESLint
+- **Frontend:** React, Tailwind CSS
+- **State Management:** React Hooks
+- **Data Storage:** Local Storage
+- **Dependencies:** react-toastify, uuid
+- **Development Tools:** Vite, ESLint
 
 **Installation**
 
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone [<repository-url>](https://github.com/surajkumar345678/S3CUREPASS.git)
 ```
 
 2. Navigate to the project directory:
