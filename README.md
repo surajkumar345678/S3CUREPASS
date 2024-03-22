@@ -66,6 +66,6 @@ We welcome your contributions! Feel free to open an issue or submit a pull reque
 
 **License**
 
-This project is licensed under the MIT License.
+This project is not licensed under the [MIT License]().
 
 **Made with ❤️ by [surajkumar345678](https://github.com/surajkumar345678)**
