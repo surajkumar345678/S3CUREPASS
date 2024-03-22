@@ -23,7 +23,7 @@ SecurePass is a simple yet effective password manager built using React. It allo
 1. Clone the repository:
 
 ```bash
-git clone [<repository-url>](https://github.com/surajkumar345678/S3CUREPASS.git)
+git clone https://github.com/surajkumar345678/S3CUREPASS.git
 ```
 
 2. Navigate to the project directory:
