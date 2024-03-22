@@ -57,8 +57,14 @@ npm run dev
 
 **Screenshots**
 
-* Adding a Password (include screenshot here)
-* Managing Passwords (include screenshot here)
+*Home Page*
+![Screenshot (24)](https://github.com/surajkumar345678/S3CUREPASS/assets/60316890/4af0286f-9731-4c73-b674-2127cfef6ab5)
+
+
+*Adding a Password*
+![Screenshot (25)](https://github.com/surajkumar345678/S3CUREPASS/assets/60316890/e9ef65c5-359e-42ed-9fc4-9dacad99b649)
+
+
 
 **Contributing**
 
