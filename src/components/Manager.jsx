@@ -1,9 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
-
 import { v4 as uuidv4 } from "uuid";
 
 const Manager = () => {
@@ -20,6 +17,7 @@ const Manager = () => {
   }, []);
 
   const copyText = (text) => {
+    // Function to copy text to clipboard
     toast(text + " copied to clipboard", {
       position: "top-right",
       autoClose: 3000,
@@ -34,10 +32,12 @@ const Manager = () => {
   };
 
   const togglePasswordVisibility = () => {
+    // Function to toggle password visibility
     setShowPassword(!showPassword);
   };
 
   const savePassword = () => {
+    // Function to save password to local storage
     if (!form.site || !form.username || !form.password) {
       toast.error("Please fill in all fields before saving the password", {
         position: "top-right",
@@ -71,12 +71,14 @@ const Manager = () => {
   };
 
   const editPassword = (id) => {
+    // Function to edit password
     console.log("editing password", id);
     setform(passwordArray.filter((i) => i.id === id)[0]);
     setPasswordArray(passwordArray.filter((item) => item.id !== id));
   };
 
   const deletePassword = (id) => {
+    // Function to delete password
     const confirmation = window.confirm(
       "Are you sure you want to delete this password?"
     );
@@ -98,11 +100,13 @@ const Manager = () => {
   };
 
   const handleChange = (e) => {
+    // Function to handle form input change
     setform({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
     <>
+      {/* Toast notifications container */}
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -116,12 +120,9 @@ const Manager = () => {
         theme="light"
         transition="Bounce"
       />
-      {/* Same as */}
-      <ToastContainer />
-      
-
 
       <div className="md:mycontainer p-3 min-h-${managerHeight}">
+        {/* Application Header */}
         <h1 className="text-4xl font-bold text-center flex items-center justify-center">
           <span className="text-[#00ed64]">S3CURE</span>
           <span className="text-white">PASS</span>
@@ -131,6 +132,7 @@ const Manager = () => {
           Your Own Password Manager
         </p>
 
+        {/* Form for adding new passwords */}
         <div className="text-black flex flex-col p-4 gap-10 items-center">
           <input
             value={form.site}
@@ -178,6 +180,7 @@ const Manager = () => {
             </div>
           </div>
 
+          {/* Button to add password */}
           <button
             onClick={savePassword}
             className="flex justify-center items-center bg-[#00ed64] font-bold text-md rounded-full px-8 py-2 w-fit hover:bg-[#00a957] gap-2"
@@ -189,9 +192,15 @@ const Manager = () => {
             Add Password
           </button>
         </div>
+
+        {/* Display passwords */}
         <div className="passwords">
-          <h2 className="text-white font-bold text-2xl underline py-4">Your Passwords</h2>
-          {passwordArray.length === 0 && <div className="text-white">No passwords to show</div>}
+          <h2 className="text-white font-bold text-2xl underline py-4">
+            Your Passwords
+          </h2>
+          {passwordArray.length === 0 && (
+            <div className="text-white">No passwords to show</div>
+          )}
           {passwordArray.length !== 0 && (
             <table className="table-auto w-full overflow-hidden rounded-md mb-10">
               <thead className="bg-[#00684a] text-white">
@@ -246,7 +255,7 @@ const Manager = () => {
                     </td>
                     <td className="py-2 text-center w-32 border border-white">
                       <span
-                        class="cursor-pointer mx-2 material-symbols-outlined"
+                        className="cursor-pointer mx-2 material-symbols-outlined"
                         onClick={() => {
                           editPassword(item.id);
                         }}
@@ -254,7 +263,7 @@ const Manager = () => {
                         border_color
                       </span>
                       <span
-                        class="cursor-pointer mx-2 material-symbols-outlined"
+                        className="cursor-pointer mx-2 material-symbols-outlined"
                         onClick={() => {
                           deletePassword(item.id);
                         }}
@@ -274,3 +283,4 @@ const Manager = () => {
 };
 
 export default Manager;
+
