@@ -18,7 +18,7 @@ const Manager = () => {
 
   const copyText = (text) => {
     // Function to copy text to clipboard
-    toast(text + " copied to clipboard", {
+    toast("copied to clipboard", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
