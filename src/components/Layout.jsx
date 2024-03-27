@@ -1,13 +1,14 @@
-// Layout.jsx
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const Layout = ({ children }) => {
+  // State variables to store heights
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [footerHeight, setFooterHeight] = useState(0);
   const [managerHeight, setManagerHeight] = useState("75vh"); // Default value
 
+  // Effect to calculate navbar and footer heights
   useEffect(() => {
     const handleResize = () => {
       setNavbarHeight(document.getElementById("navbar").clientHeight);
@@ -22,8 +23,8 @@ const Layout = ({ children }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Effect to calculate manager height based on navbar and footer heights
   useEffect(() => {
-    // Calculate manager height based on window height, navbar height, and footer height
     const windowHeight = window.innerHeight;
     const newManagerHeight = windowHeight - navbarHeight - footerHeight;
     setManagerHeight(`${newManagerHeight}px`);
@@ -31,10 +32,16 @@ const Layout = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {/* Navbar */}
       <Navbar />
+
+      {/* Main content area */}
       <div className="flex-grow bg-gradient-to-t from-gray-900 to-gray-600">
+        {/* Children components */}
         {React.cloneElement(children, { managerHeight })}
       </div>
+
+      {/* Footer */}
       <Footer />
     </div>
   );
