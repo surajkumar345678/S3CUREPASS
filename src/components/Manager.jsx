@@ -107,18 +107,16 @@ const Manager = () => {
   return (
     <>
       {/* Toast notifications container */}
-      <ToastContainer
+     <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000} 
         hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
+        closeOnClick={true}
+        pauseOnHover={true}
+        draggable={true}
+        progress={undefined}
         theme="light"
-        transition="Bounce"
+        limit={3} 
       />
 
       <div className="md:mycontainer p-3 min-h-${managerHeight}">
